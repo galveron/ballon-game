@@ -25,7 +25,7 @@ function born(){
 }
 
 function draw() {
-  
+  if(counter < 11){
   drawSprites();
   textSize(24);
   fill("black");
@@ -46,8 +46,27 @@ function draw() {
       born();
     }
     
+  }
+  if( counter >= 11 && counter < 21){
+  drawSprites();
+  textSize(24);
+  fill("black");
+  text(start, 100, 200);
+  text(counter, 50,50);
+  ballon.velocityY = -10;
+  
+    if(mouseIsOver(ballon)){
+      ballon.destroy();
+      born();
+      counter++;
+    }
+    if(ballon.y < 10){
+      ballon.destroy();
+      born();
+    }
+    
+  }
 }
-
       
 
 
