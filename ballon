@@ -1,0 +1,54 @@
+var background1 = createSprite(200, 200);
+var background2 = createSprite(200, 200);
+var background3 = createSprite(200, 200);
+var background4 = createSprite(200, 200);
+
+var start = "Push space button"
+
+
+background1.setAnimation("rainbow_1");
+background2.setAnimation("rainbow_1");
+background3.setAnimation("rainbow_1");
+background4.setAnimation("rainbow_1");
+
+var ballon = createSprite(200,350);
+ballon.setAnimation("miscball_1");
+ballon.scale=0.2;
+
+var counter = 0;
+
+function born(){
+  ballon = createSprite(randomNumber(50,350),350);
+  ballon.setAnimation("miscball_1");
+  ballon.scale=0.2;
+  ballon.velocityY = -5;
+}
+
+function draw() {
+  
+  drawSprites();
+  textSize(24);
+  fill("black");
+  text(start, 100, 200);
+  text(counter, 50,50);
+  
+    if(keyWentDown("space")){
+      start="";
+      ballon.velocityY = -5;
+    }
+    if(mouseIsOver(ballon)){
+      ballon.destroy();
+      born();
+      counter++;
+    }
+    if(ballon.y < 10){
+      ballon.destroy();
+      born();
+    }
+    
+}
+
+      
+
+
+
