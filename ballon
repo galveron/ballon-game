@@ -1,106 +1,148 @@
-var start = "Push space button"
+var start = "PRESS SPACE TO START";
+var click = "CLICK TO DESTROY";
 var background1 = createSprite(200,200);
 var ballon = createSprite(200,350);
-ballon.setAnimation("miscball_1");
+ballon.setAnimation("lion.png_1");
 ballon.scale=0.2;
 var counter = 0;
+var lifeLeft = 5;
+
 
 function born(){
-  ballon = createSprite(randomNumber(50,350),350);
-  ballon.setAnimation("miscball_1");
+  ballon = createSprite(randomNumber(50,350),460);
+  ballon.setAnimation("lion.png_1");
   ballon.scale=0.2;
-  ballon.velocityY = -5;
+  ballon.velocityY = -7;
 }
 
 function draw() {
   
-  if(counter < 11) //Level 1 Courage
+  if(counter < 4) //Level 1 Courage
   {
-  background1.setAnimation("rainbow_1");
+  background1.setAnimation("level1.png_1");
   drawSprites();
-  textSize(24);
-  fill("black");
-  text(start, 100, 200);
-  text(counter, 50,50);
+  textSize(30);
+  stroke("white");
+  fill("white");
+  text(click, 50, 150);
+  text(start, 20, 200);
+  text(counter, 20,380);
+  text("❤️️"+lifeLeft,330,380);
   
     if(keyWentDown("space")){
       start="";
-      ballon.velocityY = -5;
+      click="";
+      ballon.velocityY = -9;
     }
-    if(mouseIsOver(ballon)){
+    if(mousePressedOver(ballon)){
       ballon.destroy();
       born();
       counter++;
+      
     }
     if(ballon.y < 10){
       ballon.destroy();
-      born();
+      lifeLeft--;
+        if(lifeLeft <= 0){
+        gameOver();
+      } else (born());
+      
     }
     
-  }
-  if( counter >= 11 && counter < 21)//Level 2 Quality
-  { //Level 2
-  background1.setAnimation("background_landscape07_1");
-  drawSprites();
-  textSize(24);
-  fill("black");
-  text(start, 100, 200);
-  text(counter, 50,50);
-  ballon.velocityY = -10;
-  
-    if(mouseIsOver(ballon)){
-      ballon.destroy();
-      born();
-      counter++;
-    }
-    if(ballon.y < 10){
-      ballon.destroy();
-      born();
-    }
     
   }
-
-  if( counter >= 21 && counter < 31)//Level 3 Honesty 
-  { 
-  background1.setAnimation("background_landscape28_1");
-  drawSprites();
-  textSize(24);
-  fill("black");
-  text(start, 100, 200);
-  text(counter, 50,50);
-  ballon.velocityY = -15;
-  
-    if(mouseIsOver(ballon)){
-      ballon.destroy();
-      born();
-      counter++;
-    }
-    if(ballon.y < 10){
-      ballon.destroy();
-      born();
-    }
-    
-  }
-  if( counter == 31)//Level 4 Fun
+  if( counter >= 4 && counter < 7)//Level 2 Quality
   {
-  background1.setAnimation("background_landscape09_1");
+  background1.setAnimation("level2.png_1");
+  ballon.setAnimation("peacock.png_1");
   drawSprites();
-  textSize(24);
-  fill("black");
-  text(start, 100, 200);
-  ballon.velocityY = -1;
-  ballon.scale = 0.5;
-    if(mouseIsOver(ballon)){
+  textSize(30);
+  stroke("white");
+  fill("white");
+  text(counter, 20,380);
+  text("❤"+lifeLeft,330,380);
+  ballon.velocityY = -11;
+  
+    if(mousePressedOver(ballon)){
       ballon.destroy();
-      textSize(50);
-      text("FUN",18 ,47);
+      born();
+      counter++;
     }
     if(ballon.y < 10){
       ballon.destroy();
-      textSize(50);
-      text("FUN",18 ,47);
+      lifeLeft--;
+        if(lifeLeft <= 0){
+        gameOver();
+      } else (born());
+      
+    }
+      
+  }
+  if( counter >= 7 && counter < 10)//Level 3 Honesty 
+  { 
+  background1.setAnimation("level3.png_1");
+  ballon.setAnimation("wolf.png_1");
+  drawSprites();
+  textSize(30);
+  stroke("white");
+  fill("white");
+  text(counter, 20,380);
+  text("❤"+lifeLeft,330,380);
+  ballon.velocityY = -9;
+  
+    if(mousePressedOver(ballon)){
+      ballon.destroy();
+      born();
+      counter++;
+    }
+    if(ballon.y < 10){
+      ballon.destroy();
+      lifeLeft--;
+        if(lifeLeft <= 0){
+        gameOver();
+      } else (born());
+      
     }
     
+  }
+  if( counter == 10)//Level 4 Fun
+  {
+  background1.setAnimation("level4.png_1");
+  ballon.setAnimation("monkey.png_1");
+  drawSprites();
+  textSize(24);
+  fill("white");
+  text(counter, 20,380);
+  text("❤"+lifeLeft,330,380);
+  ballon.x=200;
+  ballon.velocityY = -4;
+  ballon.scale = 1;
+    if(mousePressedOver(ballon)){
+      ballon.destroy();
+    }
+    if(ballon.y < 30){
+      ballon.destroy();
+    }
+    
+  }
+}
+
+function gameOver(){
+  lifeLeft = "";
+  drawSprites();
+  background("black");
+  textSize(30);
+  stroke("white");
+  fill("white");
+  text("GAME OVER", 110, 190);
+  textSize(20);
+  text("PRESS SPACE TO NEW GAME", 60, 280);
+  text(counter, 20,380);
+  text(lifeLeft,380,20);
+  if(keyWentDown("space")){
+    born();
+    lifeLeft=5;
+    counter=0;
   }
 }
       
